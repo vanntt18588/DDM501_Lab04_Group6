@@ -1,0 +1,4 @@
+requests==2.32.3
+shap==0.45.1
+matplotlib==3.8.4
+evidently==0.7.21
