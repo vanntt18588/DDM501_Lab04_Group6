@@ -28,7 +28,12 @@ def get_model():
     if _model is None:
         if MODEL_URI:
             import mlflow.pyfunc
-            _model = mlflow.pyfunc.load_model(MODEL_URI)
+            try:
+                _model = mlflow.pyfunc.load_model(MODEL_URI)
+                print(f"Loaded model from MLflow: {MODEL_URI}")
+            except Exception as e:
+                print(f"Failed to load from MLflow: {e}. Falling back to local model.")
+                _model = joblib.load(MODEL_PATH)
         else:
             _model = joblib.load(MODEL_PATH)
     return _model
